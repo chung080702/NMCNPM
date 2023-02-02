@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { fetchAPI } from "../../untils/fetchAPI.js";
 import { Search } from "../../components/search/index.js";
+import { useAuthContext } from "../../contexts/authContext.js";
 function HoKhau() {
     const [hoKhaus, setHoKhaus] = useState([]);
     let navigate = useNavigate();
-
+    const { token } = useAuthContext()
     useEffect(() => {
         //const { page = 1, search = "" } = context.query;
         const fetchHoKhaus = async () => {
@@ -33,7 +34,7 @@ function HoKhau() {
             <span class="glyphicon glyphicon-envelope"></span>
             <div class="d-flex justify-content-between">
                 <span class="ml-3 h3">Danh sách hộ khẩu</span>
-                <button class="btn btn-primary" onClick={() => navigate("./them")}>Thêm hộ khẩu mới</button>
+                {token != undefined && <button class="btn btn-primary" onClick={() => navigate("./them")}>Thêm hộ khẩu mới</button>}
             </div>
             <hr></hr>
             <div class="row">

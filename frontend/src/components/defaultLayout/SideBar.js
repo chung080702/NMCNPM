@@ -3,10 +3,10 @@ import publicRoutes from "../../routes";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
 import { fetchAPI } from "../../untils/fetchAPI";
+import { useAuthContext } from "../../contexts/authContext";
 function SideBar() {
-    const navigate = useNavigate();
     const [openModal, setOpenModal] = useState(false)
-    const [token, setToken] = useState(localStorage.getItem("token"))
+    const { token, username, setToken, setUserName } = useAuthContext();
     return (<nav class="d-flex flex-column flex-shrink-0 p-3 min-vh-100">
         <div class="d-flex align-items-center">
             <i class="fa fa-address-card-o fa-2x mr-1 color-icon" ></i>
@@ -35,12 +35,13 @@ function SideBar() {
                     : <div>
                         <div class="d-flex align-items-center">
                             <i class="fas fa-user-circle mr-1"></i>
-                            <div class="h5">{localStorage.getItem("name")}</div>
+                            <div class="h5">{username}</div>
                         </div>
 
                         <button class="btn btn-outline-secondary m-2" onClick={() => {
                             localStorage.removeItem("token");
                             localStorage.removeItem("name");
+                            setUserName(undefined);
                             setToken(undefined);
                         }}>Đăng xuất</button>
                     </div>
@@ -86,6 +87,7 @@ function SideBar() {
                                 localStorage.setItem("token", token);
                                 localStorage.setItem("name", name)
                                 setToken(token)
+                                setUserName(name);
                                 setOpenModal(false)
                             } catch (err) {
                                 alert("Đăng nhập thất bại");

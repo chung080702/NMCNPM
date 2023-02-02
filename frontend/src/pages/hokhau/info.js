@@ -6,6 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Modal } from "react-bootstrap";
 import { ThemNhanKhau } from "../../components/themNhanKhau";
 import { ThongSoCuocHopTheoHoKhau } from "../../components/thongSoCuocHop/thongSoCuocHopTheoHoKhau";
+import { useAuthContext } from "../../contexts/authContext";
 function InfoHoKhau() {
     let { id } = useParams();
     const [hoKhau, setHoKhau] = useState({})
@@ -21,6 +22,7 @@ function InfoHoKhau() {
         }
         fetchHoKhau()
     }, [])
+    const { token } = useAuthContext()
     const [openModal, setOpenModal] = useState(false)
     const [nhanKhaus, setNhanKhaus] = useState([])
     const navigate = useNavigate();
@@ -28,7 +30,7 @@ function InfoHoKhau() {
         <div class="bg-white rounded-3 flex-fill p-3 mr-2">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="h4">Danh sách thành viên trong hộ</div>
-                <button class="btn btn-primary" onClick={() => setOpenModal(true)}>Thêm nhân khẩu</button>
+                {token != undefined && <button class="btn btn-primary" onClick={() => setOpenModal(true)}>Thêm nhân khẩu</button>}
             </div>
             <hr></hr>
             <div class="row">
@@ -91,7 +93,7 @@ function InfoHoKhau() {
                             <Input name="diaChi">Địa chỉ</Input>
                             <div class="d-flex justify-content-center">
                                 <button class="btn btn-danger mr-1" onClick={() => navigate("../")}>Huỷ</button>
-                                <button type="submit" class="btn btn-primary ">Sửa</button>
+                                {token != undefined && <button type="submit" class="btn btn-primary ">Sửa</button>}
                             </div>
 
 

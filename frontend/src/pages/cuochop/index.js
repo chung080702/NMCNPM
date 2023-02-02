@@ -3,9 +3,11 @@ import { useNavigate } from "react-router";
 
 import { fetchAPI } from "../../untils/fetchAPI.js";
 import { Search } from "../../components/search/index.js";
+import { useAuthContext } from "../../contexts/authContext.js";
 function CuocHop() {
     const [cuocHops, setCuocHops] = useState([]);
     const navigate = useNavigate();
+    const { token } = useAuthContext()
     useEffect(() => {
         const fetchCuocHops = async () => {
             try {
@@ -29,7 +31,7 @@ function CuocHop() {
             <div class="d-flex justify-content-between">
                 <span class="ml-3 h3">Cuộc họp</span>
                 <div class="d-flex">
-                    <button class="btn btn-primary mr-2" onClick={() => navigate("./them")}>Thêm cuộc họp mới</button>
+                    {token != undefined && <button class="btn btn-primary mr-2" onClick={() => navigate("./them")}>Thêm cuộc họp mới</button>}
                     <button class="btn btn-success" onClick={() => navigate("./thongke")}>Thống kê</button>
                 </div>
 

@@ -5,7 +5,7 @@ import { fetchAPI } from "../../untils/fetchAPI";
 import moment from "moment/moment";
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
-
+import { useAuthContext } from "../../contexts/authContext";
 
 const SignupSchema = Yup.object().shape({
     // hoVaTen: Yup.string()
@@ -32,6 +32,7 @@ export function InfoNhanKhau() {
     const navigate = useNavigate()
     const { id } = useParams();
     const [nhanKhau, setNhanKhau] = useState({ ngaySinh: "" })
+    const { token } = useAuthContext()
     useEffect(() => {
         const fetchNhanKhau = async () => {
             const {
@@ -86,22 +87,12 @@ export function InfoNhanKhau() {
 
                             <div class="row mb-2">
                                 <div class="flex-fill col-2">
-                                    <div>Ngày Sinh</div>
-                                    <Field name="ngaySinh" type="date" class="rounded-2" />
-                                    <br></br>
-                                    <ErrorMessage name="ngaySinh" />
+                                    <Input name="ngaySinh" type="date">Ngày Sinh</Input>
                                 </div>
                                 <div class="flex-fill col-2">
-                                    <div>Giới tính</div>
-                                    <label className="mr-2">
-                                        <Field type="radio" name="gioiTinh" value="Nam" />
-                                        <span>Nam</span>
-                                    </label>
-                                    <label className="space-x-3">
-                                        <Field type="radio" name="gioiTinh" value="Nữ" />
-                                        <span>Nữ</span>
-                                    </label>
-                                    <ErrorMessage name="gioiTinh" />
+                                    <div class="h6">Giới tính</div>
+                                    <Input type="radio" name="gioiTinh">Nam</Input>
+                                    <Input type="radio" name="gioiTinh">Nữ</Input>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -129,7 +120,7 @@ export function InfoNhanKhau() {
 
                         </div>
 
-                        <button type="submit" class="btn btn-primary ">Sửa</button>
+                        {token != undefined && <button type="submit" class="btn btn-primary ">Sửa</button>}
 
                     </Form>
                 }

@@ -2,10 +2,11 @@ import { tamtru } from "../../helper/mock.js"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { fetchAPI } from "../../untils/fetchAPI.js";
+import { useAuthContext } from "../../contexts/authContext.js";
 function TamTru() {
     let navigate = useNavigate();
     const [tamTrus, setTamTrus] = useState([])
-
+    const { token } = useAuthContext()
     useEffect(() => {
         const fetchTamTrus = async () => {
             const {
@@ -22,7 +23,7 @@ function TamTru() {
     return (<div class="mt-3 bg-white rounded-3 flex-fill p-3 flex-column d-flex">
         <div class="d-flex justify-content-between">
             <span class="ml-3 h3">Danh sách tạm trú</span>
-            <button class="btn btn-primary" onClick={() => navigate("./them")}>Thêm tạm trú</button>
+            {token != undefined && <button class="btn btn-primary" onClick={() => navigate("./them")}>Thêm tạm trú</button>}
         </div>
         <hr></hr>
         <div class="row">

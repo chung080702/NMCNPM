@@ -1,7 +1,8 @@
 import { useParams } from "react-router";
 import { fetchAPI } from "../../untils/fetchAPI";
-
+import { useAuthContext } from "../../contexts/authContext";
 export function DiemDanh({ diemDanh, setDiemDanh }) {
+    const { token } = useAuthContext();
     const { id } = useParams()
     return (
         <div>
@@ -22,7 +23,7 @@ export function DiemDanh({ diemDanh, setDiemDanh }) {
                                     if (value.hoKhau == e.hoKhau) value.diemDanh = true;
                                     return value;
                                 }))
-                            }}></input>
+                            }} disabled={token == undefined}></input>
                     </div>
                     <div class="col-1 flex-fill d-flex justify-content-center">
                         <input type="radio" name={`diemDanh${e.hoKhau}`} class="input-red" checked={!e.diemDanh}
@@ -31,7 +32,7 @@ export function DiemDanh({ diemDanh, setDiemDanh }) {
                                     if (value.hoKhau == e.hoKhau) value.diemDanh = false;
                                     return value;
                                 }))
-                            }}></input>
+                            }} disabled={token == undefined}></input>
                     </div>
                     <div class="col-3 flex-fill">
                         {
@@ -41,7 +42,7 @@ export function DiemDanh({ diemDanh, setDiemDanh }) {
                                     if (value.hoKhau == e.hoKhau) value.lyDo = event.target.value;
                                     return value;
                                 }))
-                            }} value={e.lyDo}></input>
+                            }} value={e.lyDo} disabled={token == undefined}></input>
                         }
                     </div>
                     <div class="col-1">

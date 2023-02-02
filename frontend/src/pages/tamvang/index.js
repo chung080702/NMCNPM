@@ -2,8 +2,10 @@ import { tamvang } from "../../helper/mock.js"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { fetchAPI } from "../../untils/fetchAPI.js";
+import { useAuthContext } from "../../contexts/authContext.js";
 function TamVang() {
     let navigate = useNavigate();
+    const { token } = useAuthContext()
     const [tamVangs, setTamVangs] = useState([])
     useEffect(() => {
         const fetchTamVangs = async () => {
@@ -20,7 +22,7 @@ function TamVang() {
     return (<div class="mt-3 bg-white rounded-3 flex-fill p-3 flex-column d-flex">
         <div class="d-flex justify-content-between">
             <span class="ml-3 h3">Danh sách tạm vắng</span>
-            <button class="btn btn-primary" onClick={() => navigate("./them")}>Thêm tạm vắng</button>
+            {token != undefined && <button class="btn btn-primary" onClick={() => navigate("./them")}>Thêm tạm vắng</button>}
         </div>
         <hr></hr>
         <div class="row">

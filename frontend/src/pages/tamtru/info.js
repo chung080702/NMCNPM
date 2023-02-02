@@ -5,11 +5,13 @@ import { fetchAPI } from "../../untils/fetchAPI";
 import moment from "moment/moment";
 import { useEffect, useState } from "react";
 import { tamvang } from "../../helper/mock";
+import { useAuthContext } from "../../contexts/authContext";
 
 function InfoTamTru() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [tamTru, setTamTru] = useState({});
+    const { token } = useAuthContext()
     useEffect(() => {
         const fetchTamTru = async () => {
             try {
@@ -52,7 +54,7 @@ function InfoTamTru() {
                     <div class="flex-fill flex-column d-flex">
                         <div class="d-flex justify-content-between">
                             <div class="h4">Sửa tạm trú</div>
-                            <button class="btn btn-danger" onClick={() => navigate("../")}>Huỷ</button>
+                            <button class="btn btn-danger" onClick={() => navigate("../")}>Quay lại</button>
                         </div>
 
                         <hr></hr>
@@ -67,19 +69,18 @@ function InfoTamTru() {
 
                         <div class="row mb-2">
                             <div class="col-2 flex-fill">
-                                <div>Từ ngày</div>
-                                <Field name="tuNgay" type="date" class="rounded-2" />
+                                <Input name="tuNgay" type="date">Từ ngày</Input>
+
                             </div>
                             <div class="col-2 flex-fill">
-                                <div>Đến ngày</div>
-                                <Field name="denNgay" type="date" class="rounded-2" />
+                                <Input name="denNgay" type="date"> Đến ngày</Input>
+
                             </div>
 
                         </div>
 
-                        <div class="h5">Nội dung</div>
-                        <Field name="lyDo" component="textarea" class="rounded-3 flex-fill mb-2"></Field>
-                        <div><button type="submit" class="btn btn-primary ">Sửa</button></div>
+                        <Input name="lyDo" component="textarea"> Nội dung</Input>
+                        {token != undefined && <div><button type="submit" class="btn btn-primary ">Sửa</button></div>}
                     </div>
 
                 </Form>

@@ -6,6 +6,7 @@ import { fetchAPI } from "../../untils/fetchAPI";
 import moment from "moment/moment";
 import { Modal } from "react-bootstrap";
 import { DiemDanh } from "../../components/diemDanh";
+import { useAuthContext } from "../../contexts/authContext";
 function InfoCuocHop() {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -13,6 +14,7 @@ function InfoCuocHop() {
     const [cuocHop, setCuocHop] = useState({ hoKhaus: [] })
     const [danhSachThamGia, setDanhSachThamGia] = useState([]);
     const [diemDanh, setDiemDanh] = useState([])
+    const { token } = useAuthContext();
     const fetchCuocHop = useCallback(async () => {
         try {
             const {
@@ -86,21 +88,19 @@ function InfoCuocHop() {
                         <div class="row mb-2">
                             <div class="col-2 flex-fill"> <Input name="diaDiem">Địa điểm</Input> </div>
                             <div class="col-2 flex-fill">
-                                <div>Thời gian</div>
-                                <Field name="thoiGian" type="datetime-local" class="rounded-3"></Field>
+                                <Input name="thoiGian" type="datetime-local">Thời gian</Input>
                             </div>
                         </div>
 
+                        <Input name="noiDung" component="textarea">Nội dung</Input>
+                        <Input name="banBaoCao" component="textarea">Báo cáo cuộc họp</Input>
 
-                        <div>Nội dung</div>
-                        <Field name="noiDung" component="textarea" class="rounded-3 w-100 flex-fill mb-2"></Field>
-                        <div>Báo cáo cuộc họp</div>
-                        <Field name="banBaoCao" component="textarea" class="rounded-3 w-100 flex-fill mb-2"></Field>
 
 
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-danger mr-1" onClick={() => navigate("../")}>Huỷ</button>
-                            <button type="submit" class="btn btn-primary ">Sửa</button>
+                            <button class="btn btn-danger mr-1" onClick={() => navigate("../")}>Quay lại</button>
+                            {token != undefined && <button type="submit" class="btn btn-primary ">Sửa</button>}
+
                         </div>
                     </Form>
                 }
@@ -143,7 +143,7 @@ function InfoCuocHop() {
                                     if (value.id == e.id) value.invited = false;
                                     return value;
                                 }))
-                            }}></input>
+                            }} disabled={token == undefined}></input>
                         </div>)
                     }
                 </div>
@@ -157,28 +157,32 @@ function InfoCuocHop() {
                                     if (value.id == e.id) value.invited = true;
                                     return value;
                                 }))
-                            }}></input>
+                            }} disabled={token == undefined}></input>
                         </div>)
                     }
                 </div>
                 <hr></hr>
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn-primary" onClick={async () => {
-                        try {
-                            await fetchAPI(`/api/v1/cuochop/danhsachthamgia/${id}`, {
-                                method: "POST",
-                                body: {
-                                    hoKhaus: danhSachThamGia.filter(e => e.invited).map(e => e.id)
-                                },
-                                token: localStorage.getItem("token"),
-                            });
-                            alert("Cập nhật thành công")
-                        } catch (err) {
-                            alert("Cập nhật thất bại")
-                            //setErrorMessage("Có lỗi xảy ra");
-                        }
-                    }}>Cập nhật</button>
-                </div>
+                {
+                    token != undefined &&
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-primary" onClick={async () => {
+                            try {
+                                await fetchAPI(`/api/v1/cuochop/danhsachthamgia/${id}`, {
+                                    method: "POST",
+                                    body: {
+                                        hoKhaus: danhSachThamGia.filter(e => e.invited).map(e => e.id)
+                                    },
+                                    token: localStorage.getItem("token"),
+                                });
+                                alert("Cập nhật thành công")
+                            } catch (err) {
+                                alert("Cập nhật thất bại")
+                                //setErrorMessage("Có lỗi xảy ra");
+                            }
+                        }}>Cập nhật</button>
+                    </div>
+                }
+
             </div>
 
 
