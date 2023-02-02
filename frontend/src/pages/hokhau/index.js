@@ -51,11 +51,17 @@ function HoKhau() {
                         <div class="col-1 flex-fill justify-content-center d-flex">
                             <i class="bi bi-pencil-fill mr-1" onClick={() => navigate(`./${e.id}`)}></i>
                             <i class="bi bi-file-earmark-excel-fill" onClick={() => {
-                                fetchAPI(`/api/v1/hokhau/${e.id}`, {
-                                    method: "DELETE",
-                                    token: localStorage.getItem("token"),
-                                });
-                                setHoKhaus(hoKhaus.filter(value => value.id != e.id))
+                                try {
+                                    fetchAPI(`/api/v1/hokhau/${e.id}`, {
+                                        method: "DELETE",
+                                        token: localStorage.getItem("token"),
+                                    });
+                                    setHoKhaus(hoKhaus.filter(value => value.id != e.id))
+                                } catch (error) {
+                                    alert(error)
+                                }
+
+
                             }}></i>
                         </div>
                     </div>

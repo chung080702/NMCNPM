@@ -73,7 +73,7 @@ function SideBar() {
                             try {
 
                                 const {
-                                    result: { token: token },
+                                    result: { token: token, username: name },
 
                                 } = await fetchAPI("/api/v1/auth/login", {
                                     method: "POST",
@@ -84,7 +84,7 @@ function SideBar() {
                                 });
 
                                 localStorage.setItem("token", token);
-                                localStorage.setItem("name", document.getElementById("username").value)
+                                localStorage.setItem("name", name)
                                 setToken(token)
                                 setOpenModal(false)
                             } catch (err) {

@@ -114,63 +114,33 @@ export function ThongSoCuocHop({ numberMonthAgo }) {
 
             <Bar data={{
                 labels: months.map((e, i) => e + 1 + "/" + years[i]),
-                datasets: datasets,
+                datasets: [
+                    {
+                        label: 'Tham gia',
+                        data: thongSoCuocHop.map(e => Number(e.thamGia)),
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    },
+                    {
+                        label: 'Vắng có lý do',
+                        data: thongSoCuocHop.map(e => Number(e.vangCoLyDo)),
+                        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                    },
+                    {
+                        label: 'Vắng không lý do',
+                        data: thongSoCuocHop.map(e => Number(e.vangKhongLyDo)),
+                        backgroundColor: 'rgba(247, 122, 4, 0.5)',
+                    },
+                    {
+                        label: 'Cuộc họp',
+                        data: thongSoCuocHop.map(e => Number(e.cuocHops)),
+                        backgroundColor: 'rgba(132, 237, 158, 0.5)',
+                    }
+                ],
 
             }
 
             } />
             <div class="d-flex justify-content-center h5 my-4"> Tổng số cuộc họp: {thongSoChung.cuocHops}</div>
-            <div class="h5  mt-2 justify-content-center d-flex"> Tuỳ chọn</div>
-            <div class="d-flex justify-content-center">
-                <div class="d-flex mr-2">
-                    <input type="checkbox" onChange={(event) => {
-                        console.log(datasets)
-                        console.log(event.target.checked)
-                        if (event.target.checked) setDatasets([...datasets, {
-                            label: 'thamGia',
-                            data: thongSoCuocHop.map(e => Number(e.thamGia)),
-                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                        }])
-                        else setDatasets(datasets.filter(e => e.label != 'thamGia'))
-                    }}></input>
-                    <div>Tham gia</div>
-                </div>
-                <div class="d-flex mr-2">
-                    <input type="checkbox" onChange={(event) => {
-                        if (event.target.checked) setDatasets([...datasets, {
-                            label: 'vangCoLyDo',
-                            data: thongSoCuocHop.map(e => Number(e.vangCoLyDo)),
-                            backgroundColor: 'rgba(53, 162, 235, 0.5)',
-                        }])
-                        else setDatasets(datasets.filter(e => e.label != 'vangCoLyDo'))
-                    }}></input>
-                    <div>Vắng có lý do</div>
-                </div>
-
-                <div class="d-flex mr-2">
-                    <input type="checkbox" onChange={(event) => {
-                        if (event.target.checked) setDatasets([...datasets, {
-                            label: 'vangKhongLyDo',
-                            data: thongSoCuocHop.map(e => Number(e.vangKhongLyDo)),
-                            backgroundColor: 'rgba(247, 122, 4, 0.5)',
-                        }])
-                        else setDatasets(datasets.filter(e => e.label != 'vangKhongLyDo'))
-                    }}></input>
-                    <div>Vắng không lý do</div>
-                </div>
-                <div class="d-flex">
-                    <input type="checkbox" onChange={(event) => {
-                        if (event.target.checked) setDatasets([...datasets, {
-                            label: 'cuocHops',
-                            data: thongSoCuocHop.map(e => Number(e.cuocHops)),
-                            backgroundColor: 'rgba(132, 237, 158, 0.5)',
-                        }])
-                        else setDatasets(datasets.filter(e => e.label != 'cuocHops'))
-                    }}></input>
-                    <div>Số cuộc họp</div>
-                </div>
-
-            </div>
 
         </div>
         <div class="d-flex flex-column">
