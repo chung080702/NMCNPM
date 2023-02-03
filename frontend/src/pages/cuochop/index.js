@@ -59,13 +59,13 @@ function CuocHop() {
                 <div class="col-1 flex-fill">{e.vangMat}</div>
                 <div class="col-1 flex-fill justify-content-center d-flex">
                     <i class="bi bi-pencil-fill mr-1" onClick={() => navigate(`./${e.id}`)}></i>
-                    <i class="bi bi-file-earmark-excel-fill" onClick={() => {
+                    {token != undefined && <i class="bi bi-file-earmark-excel-fill" onClick={() => {
                         fetchAPI(`/api/v1/cuochop/${e.id}`, {
                             method: "DELETE",
                             token: localStorage.getItem("token"),
                         });
                         setCuocHops(cuocHops.filter(value => value.id != e.id))
-                    }}></i>
+                    }}></i>}
                 </div>
             </div>)}
         </div>

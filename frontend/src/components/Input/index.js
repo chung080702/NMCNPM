@@ -29,6 +29,8 @@ export function Input({ name, children, type, component }) {
                 <div class="col-2 flex-fill"></div>
             </div>
 
-            <ErrorMessage name={name} />
+            <ErrorMessage name={name}>
+                {msg => <div class="text-danger">{msg}</div>}
+            </ErrorMessage>
         </div>);
 }

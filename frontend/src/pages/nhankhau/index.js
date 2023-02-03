@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import { fetchAPI } from "../../untils/fetchAPI.js";
 
 import { Search } from "../../components/search/index.js";
+import { useAuthContext } from "../../contexts/authContext.js";
 function NhanKhau() {
     const [nhanKhaus, setNhanKhaus] = useState([]);
     let navigate = useNavigate();
+    const { token } = useAuthContext()
     useEffect(() => {
         //const { page = 1, search = "" } = context.query;
         const fetchNhanKhaus = async () => {
@@ -53,13 +55,13 @@ function NhanKhau() {
                         <div class="col-3 flex-fill">{e.diaChiHienTai}</div>
                         <div class="col-1 flex-fill d-flex justify-content-center">
                             <i class="bi bi-pencil-fill mr-1" onClick={() => navigate(`./${e.id}`)}></i>
-                            <i class="bi bi-file-earmark-excel-fill" onClick={() => {
+                            {token != undefined && <i class="bi bi-file-earmark-excel-fill" onClick={() => {
                                 fetchAPI(`/api/v1/nhankhau/${e.id}`, {
                                     method: "DELETE",
                                     token: localStorage.getItem("token"),
                                 });
                                 setNhanKhaus(nhanKhaus.filter(value => value.id != e.id))
-                            }}></i>
+                            }}></i>}
                         </div>
                     </div>
                 )

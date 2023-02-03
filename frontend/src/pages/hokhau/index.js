@@ -51,7 +51,7 @@ function HoKhau() {
                         <div class="col-2 flex-fill ">{e.diaChi}</div>
                         <div class="col-1 flex-fill justify-content-center d-flex">
                             <i class="bi bi-pencil-fill mr-1" onClick={() => navigate(`./${e.id}`)}></i>
-                            <i class="bi bi-file-earmark-excel-fill" onClick={() => {
+                            {token != undefined && <i class="bi bi-file-earmark-excel-fill" onClick={() => {
                                 try {
                                     fetchAPI(`/api/v1/hokhau/${e.id}`, {
                                         method: "DELETE",
@@ -63,7 +63,7 @@ function HoKhau() {
                                 }
 
 
-                            }}></i>
+                            }}></i>}
                         </div>
                     </div>
                 )

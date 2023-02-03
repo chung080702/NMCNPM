@@ -8,23 +8,36 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../../contexts/authContext";
 
 const SignupSchema = Yup.object().shape({
-    // hoVaTen: Yup.string()
-    //     .min(2, 'Too Short!')
-    //     .max(70, 'Too Long!')
-    //     .required('Required'),
-    // cccd: Yup.string()
-    //     .required('Required')
-    //     .matches(/^[0-9]+$/, "Must be only digits")
-    //     .min(12, 'Must be exactly 12 digits')
-    //     .max(12, 'Must be exactly 12 digits'),
-    // diaChi: Yup.string()
-    //     .min(2, 'Too Short!')
-    //     .max(70, 'Too Long!')
-    //     .required('Required'),
-    // ngaySinh: Yup.date().required('Required'),
-    // gioiTinh: Yup.string().required('Required'),
-    // nguyenQuan: Yup.string()
-    //     .required('Required'),
+    hoVaTen: Yup.string()
+        .required('Required'),
+    cccd: Yup.string()
+        .required('Required')
+        .matches(/^[0-9]+$/, "Must be only digits")
+        .min(12, 'Must be exactly 12 digits')
+        .max(12, 'Must be exactly 12 digits'),
+    diaChiHienTai: Yup.string()
+        .required('Required'),
+    nguyenQuan: Yup.string()
+        .required('Required'),
+    soHoChieu: Yup.string()
+        .matches(/^[0-9]+$/, "Must be only digits")
+        .required('Required'),
+    tonGiao: Yup.string()
+        .required('Required'),
+    danToc: Yup.string()
+        .required('Required'),
+    quocTich: Yup.string()
+        .required('Required'),
+    noiThuongTru: Yup.string()
+        .required('Required'),
+    diaChiHienTai: Yup.string()
+        .required('Required'),
+    noiLamViec: Yup.string()
+        .required('Required'),
+    ngheNghiep: Yup.string()
+        .required('Required'),
+    trinhDoHocVan: Yup.string()
+        .required('Required'),
 
 });
 

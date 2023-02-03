@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { fetchAPI } from "../../untils/fetchAPI.js";
 import { useAuthContext } from "../../contexts/authContext.js";
+import moment from "moment";
 function TamTru() {
     let navigate = useNavigate();
     const [tamTrus, setTamTrus] = useState([])
@@ -42,17 +43,17 @@ function TamTru() {
                     <div class="col-2 flex-fill">{e.hoVaTen}</div>
                     <div class="col-1 flex-fill">{e.cccd}</div>
                     <div class="col-3 flex-fill">{e.diaChi}</div>
-                    <div class="col-2 flex-fill">{e.tuNgay}</div>
-                    <div class="col-2 flex-fill">{e.denNgay}</div>
+                    <div class="col-2 flex-fill">{moment(e.tuNgay).format("DD-MM-YYYY")}</div>
+                    <div class="col-2 flex-fill">{moment(e.denNgay).format("DD-MM-YYYY")}</div>
                     <div class="col-1 flex-fill d-flex justify-content-center">
                         <i class="bi bi-pencil-fill mr-1" onClick={() => navigate(`./${e.id}`)}></i>
-                        <i class="bi bi-file-earmark-excel-fill" onClick={() => {
+                        {token != undefined && <i class="bi bi-file-earmark-excel-fill" onClick={() => {
                             fetchAPI(`/api/v1/tamtru/${e.id}`, {
                                 method: "DELETE",
                                 token: localStorage.getItem("token"),
                             });
                             setTamTrus(tamTrus.filter(value => value.id != e.id))
-                        }}></i>
+                        }}></i>}
                     </div>
                 </div>
             )

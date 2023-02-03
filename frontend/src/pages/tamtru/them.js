@@ -3,6 +3,25 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Input } from "../../components/Input";
 import { fetchAPI } from "../../untils/fetchAPI";
 import moment from "moment/moment";
+import * as Yup from "yup"
+const SignupSchema = Yup.object().shape({
+    hoVaTen: Yup.string()
+        .required('Required'),
+    cccd: Yup.string()
+        .required('Required')
+        .matches(/^[0-9]+$/, "Must be only digits")
+        .min(12, 'Must be exactly 12 digits')
+        .max(12, 'Must be exactly 12 digits'),
+    diaChi: Yup.string()
+        .required('Required'),
+
+    tuNgay: Yup.date()
+        .required('Required'),
+    denNgay: Yup.date()
+        .required('Required')
+        .min(Yup.ref('tuNgay'), "after start day")
+
+});
 
 function ThemTamTru() {
     const navigate = useNavigate();
@@ -10,6 +29,7 @@ function ThemTamTru() {
         <Formik
             initialValues={{
             }}
+            validationSchema={SignupSchema}
             onSubmit={async (values) => {
                 try {
                     const { result } = await fetchAPI(`/api/v1/tamtru`, {
@@ -50,10 +70,16 @@ function ThemTamTru() {
                             <div class="col-2 flex-fill">
                                 <div>Từ ngày</div>
                                 <Field name="tuNgay" type="date" class="rounded-2" />
+                                <ErrorMessage name="tuNgay">
+                                    {msg => <div class="text-danger">{msg}</div>}
+                                </ErrorMessage>
                             </div>
                             <div class="col-2 flex-fill">
                                 <div>Đến ngày</div>
                                 <Field name="denNgay" type="date" class="rounded-2" />
+                                <ErrorMessage name="denNgay">
+                                    {msg => <div class="text-danger">{msg}</div>}
+                                </ErrorMessage>
                             </div>
 
                         </div>
