@@ -62,7 +62,7 @@ function InfoHoKhau() {
                 <div class="col-2 flex-fill h5">Họ tên</div>
                 <div class="col-2 flex-fill h5">Ngày sinh</div>
                 <div class="col-1 flex-fill h5">Quan hệ với chủ hộ</div>
-                {token != undefined && <div class="col-1 flex-fill h5 justify-content-center d-flex">Thao tac</div>}
+                <div class="col-1 flex-fill h5 justify-content-center d-flex">Thao tac</div>
             </div>
             <div class="d-flex flex-column flex-fill">
                 {
@@ -89,7 +89,7 @@ function InfoHoKhau() {
             <hr></hr>
             <div class="justify-content-center d-flex">
                 <button class="btn btn-danger mr-1" onClick={() => navigate("../")}>Huỷ</button>
-                <button class="btn btn-primary " onClick={async () => {
+                {token != undefined && <button class="btn btn-primary " onClick={async () => {
                     try {
                         const { result } = await fetchAPI(`/api/v1/hokhau/${id}`, {
                             method: "PUT",
@@ -107,7 +107,7 @@ function InfoHoKhau() {
                         alert("Thất bại")
                         //setErrorMessage("Có lỗi xảy ra");
                     }
-                }}>Sửa hộ khẩu</button>
+                }}>Sửa hộ khẩu</button>}
             </div>
         </div>
 

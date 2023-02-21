@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 @RestController
 @RequestMapping(value = "api/v1/cuochop")
@@ -47,7 +48,8 @@ public class CuocHopController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<APIResponse> updateCuocHop(@PathVariable Long id, @RequestBody @Valid CuocHopRequest cuocHopRequest) {
+    public ResponseEntity<APIResponse> updateCuocHop(@PathVariable Long id,
+            @RequestBody @Valid CuocHopRequest cuocHopRequest) {
         ResponseEntity<APIResponse> response = cuocHopService.updateCuocHop(id, cuocHopRequest);
         return response;
     }
@@ -71,59 +73,64 @@ public class CuocHopController {
     }
 
     @GetMapping("/thongkecuochop")
-    public ResponseEntity<APIResponse> thongKeCuocHop(@PathParam("months") Long months, @PathParam("years") Long years) {
-        Instant to = Instant.now();
-        Instant from;
+    public ResponseEntity<APIResponse> thongKeCuocHop(@PathParam("months") String months,
+            @PathParam("years") String years) {
+        Instant to = Instant.now().plus(7, ChronoUnit.HOURS);
+        Instant from = Instant.parse(years + "-" + months + "-01T00:00:00.00Z");
 
-        int day = 30;
-        if (months != null && months != 0) {
-            day = (int)(30*months);
-        }
-        if (years != null && years != 0) {
-            day = (int)(365*years);
-        }
+        // int day = 30;
+        // if (months != null && months != 0) {
+        // day = (int) (30 * months);
+        // }
+        // if (years != null && years != 0) {
+        // day = (int) (365 * years);
+        // }
 
-        from = to.minus(day, ChronoUnit.DAYS);
+        // from = to.minus(day, ChronoUnit.DAYS);
 
         ResponseEntity<APIResponse> response = cuocHopService.thongKeCuocHop(from, to);
         return response;
     }
 
     @GetMapping("/thongkenguoithamgia")
-    public ResponseEntity<APIResponse> thongKeNguoiThamGia(@PathParam("months") Long months, @PathParam("years") Long years) {
-        Instant to = Instant.now();
-        Instant from;
+    public ResponseEntity<APIResponse> thongKeNguoiThamGia(@PathParam("months") String months,
+            @PathParam("years") String years) {
+        Instant to = Instant.now().plus(7, ChronoUnit.HOURS);
+        Instant from = Instant.parse(years + "-" + months + "-01T00:00:00.00Z");
 
-        int day = 30;
-        if (months != null && months != 0) {
-            day = (int)(30*months);
-        }
-        if (years != null && years != 0) {
-            day = (int)(365*years);
-        }
+        // int day = 30;
+        // if (months != null && months != 0) {
+        // day = (int) (30 * months);
+        // }
+        // if (years != null && years != 0) {
+        // day = (int) (365 * years);
+        // }
 
-        from = to.minus(day, ChronoUnit.DAYS);
+        // from = to.minus(day, ChronoUnit.DAYS);
 
         ResponseEntity<APIResponse> response = cuocHopService.thongKeNguoiThamGia(from, to);
         return response;
     }
 
     @GetMapping("/thongkenguoithamgia/{id}")
-    public ResponseEntity<APIResponse> thongKeNguoiThamGiaTheoCuocHop(@PathVariable Long id, @PathParam("months") Long months, @PathParam("years") Long years) {
-        Instant to = Instant.now();
-        Instant from;
+    public ResponseEntity<APIResponse> thongKeNguoiThamGiaTheoCuocHop(@PathVariable Long id,
+            @PathParam("months") String months, @PathParam("years") String years) {
+        Instant to = Instant.now().plus(7, ChronoUnit.HOURS);
+        Instant from = Instant.parse(years + "-" + months + "-01T00:00:00.00Z");
 
-        int day = 30;
-        if (months != null && months != 0) {
-            day = (int)(30*months);
-        }
-        if (years != null && years != 0) {
-            day = (int)(365*years);
-        }
+        // int day = 30;
+        // if (months != null && months != 0) {
+        // day = (int) (30 * months);
+        // }
+        // if (years != null && years != 0) {
+        // day = (int) (365 * years);
+        // }
 
-        from = to.minus(day, ChronoUnit.DAYS);
+        // from = to.minus(day, ChronoUnit.DAYS);
 
         ResponseEntity<APIResponse> response = cuocHopService.getHoKhauThamGiaTheoId(id, from, to);
+        System.out.println(from);
+        System.out.println(to);
         return response;
     }
 
@@ -146,7 +153,8 @@ public class CuocHopController {
     }
 
     @PostMapping("/danhsachthamgia/{id}")
-    public ResponseEntity<APIResponse> updateDanhSachThamGia(@PathVariable Long id, @RequestBody @Valid HoKhauCuocHop hoKhauCuocHop) {
+    public ResponseEntity<APIResponse> updateDanhSachThamGia(@PathVariable Long id,
+            @RequestBody @Valid HoKhauCuocHop hoKhauCuocHop) {
         ResponseEntity<APIResponse> response = cuocHopService.capNhatDanhSachThamGia(id, hoKhauCuocHop);
         return response;
     }

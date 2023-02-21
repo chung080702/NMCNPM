@@ -44,6 +44,7 @@ export function ThongSoCuocHop({ numberMonthAgo }) {
                 //token: session.token,
                 params: { months: month, years: year },
             });
+            //console.log(thongso);
             return {
                 ...thongso,
                 cuocHops: thongso.cuocHops.length
@@ -64,7 +65,7 @@ export function ThongSoCuocHop({ numberMonthAgo }) {
                 //token: session.token,
                 params: { months: month, years: year },
             });
-            console.log(thongso)
+
             return thongso;
 
         } catch (err) {
@@ -80,6 +81,7 @@ export function ThongSoCuocHop({ numberMonthAgo }) {
             var years = []
             var months = []
             var thongSoCuocHop = []
+
             for (var i = 0; i < numberMonthAgo; i++) {
                 years = [year, ...years]
                 months = [month, ...months]

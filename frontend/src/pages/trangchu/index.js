@@ -24,7 +24,7 @@ function TrangChu() {
                     //params: { page: 0, size: 5, sort: "id,desc", keyword: "" },
                 });
                 setActions(actions);
-                console.log(actions)
+                console.log(generalInfo)
                 setGeneralInfo(generalInfo)
 
             } catch (err) {

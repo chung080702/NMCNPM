@@ -4,6 +4,19 @@ import { useNavigate } from "react-router";
 import { Input } from "../../components/Input";
 import { fetchAPI } from "../../untils/fetchAPI";
 import moment from "moment/moment";
+import * as Yup from "yup"
+const SignupSchema = Yup.object().shape({
+    tieuDe: Yup.string()
+        .required('Required'),
+    diaDiem: Yup.string()
+        .required('Required'),
+    thoiGian: Yup.date()
+        .required('Required')
+        .min(new Date(Date.now()), "Must after now"),
+
+
+});
+
 
 function ThemCuocHop() {
     const navigate = useNavigate()
@@ -37,6 +50,7 @@ function ThemCuocHop() {
             <hr></hr>
             <Formik
                 enableReinitialize
+                validationSchema={SignupSchema}
                 initialValues={{
                     nguoiTao: localStorage.getItem("name")
                 }}
@@ -68,8 +82,11 @@ function ThemCuocHop() {
                         <div class="row mb-2">
                             <div class="col-2 flex-fill"> <Input name="diaDiem">Địa điểm</Input> </div>
                             <div class="col-2 flex-fill">
-                                <div>Thời gian</div>
+                                <div class="h6">Thời gian</div>
                                 <Field name="thoiGian" type="datetime-local" class="rounded-3"></Field>
+                                <ErrorMessage name="thoiGian">
+                                    {msg => <div class="text-danger">{msg}</div>}
+                                </ErrorMessage>
                             </div>
                         </div>
 

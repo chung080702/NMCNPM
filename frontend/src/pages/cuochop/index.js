@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { fetchAPI } from "../../untils/fetchAPI.js";
 import { Search } from "../../components/search/index.js";
 import { useAuthContext } from "../../contexts/authContext.js";
+import moment from "moment";
 function CuocHop() {
     const [cuocHops, setCuocHops] = useState([]);
     const navigate = useNavigate();
@@ -53,7 +54,7 @@ function CuocHop() {
                     : <div class="col-1 flex-fill text-warning">Chưa diễn ra </div>}
                 <div class="col-1 flex-fill">{e.nguoiTao}</div>
                 <div class="col-2 flex-fill">{e.tieuDe}</div>
-                <div class="col-2 flex-fill">{e.thoiGian}</div>
+                <div class="col-2 flex-fill">{moment(e.thoiGian).format("DD-MM-YYYY")}</div>
                 <div class="col-2 flex-fill">{e.diaDiem}</div>
                 <div class="col-1 flex-fill">{e.thamGia}</div>
                 <div class="col-1 flex-fill">{e.vangMat}</div>
